@@ -36,7 +36,7 @@ void setup() {
   M5.Lcd.fillCircle(100, 100, 50, RED);
   delay(1000);
   M5.Lcd.drawTriangle(30, 30, 180, 100, 80, 150, YELLOW);
-  delay(1000);pio lib install "M5Stack"
+  delay(1000);
   M5.Lcd.fillTriangle(30, 30, 180, 100, 80, 150, YELLOW);
 
 }
