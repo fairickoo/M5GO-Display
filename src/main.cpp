@@ -1,51 +1,76 @@
 #include <M5Stack.h>
-
-// the setup routine runs once when M5Stack starts up
+const unsigned int GREENTYPE = M5.Lcd.color565(7,235,235);
+const unsigned int GREY = M5.Lcd.color565(153,153,153);
+int state=0;
+void text();
+void menu();
+void setCursorText(int x, int y);
+void menuList();
 void setup() {
-  
-  // initialize the M5Stack object
+
   M5.begin();
+  
+}
 
-  // Lcd display
-  M5.Lcd.fillScreen(WHITE);
-  delay(500);
-  M5.Lcd.fillScreen(RED);
-  delay(500);
-  M5.Lcd.fillScreen(GREEN);
-  delay(500);
-  M5.Lcd.fillScreen(BLUE);
-  delay(500);
-  M5.Lcd.fillScreen(BLACK);
-  delay(500);
-
-  // text print
-  M5.Lcd.fillScreen(BLACK);
-  M5.Lcd.setCursor(10, 10);
-  M5.Lcd.setTextColor(WHITE);
-  M5.Lcd.setTextSize(1);
-  M5.Lcd.printf("Display Test!");
-
-  // draw graphic
-  delay(1000);
-  M5.Lcd.drawRect(100, 100, 50, 50, BLUE);
-  delay(1000);
-  M5.Lcd.fillRect(100, 100, 50, 50, BLUE);
-  delay(1000);
-  M5.Lcd.drawCircle(100, 100, 50, RED);
-  delay(1000);
-  M5.Lcd.fillCircle(100, 100, 50, RED);
-  delay(1000);
-  M5.Lcd.drawTriangle(30, 30, 180, 100, 80, 150, YELLOW);
-  delay(1000);
-  M5.Lcd.fillTriangle(30, 30, 180, 100, 80, 150, YELLOW);
+void loop(){
+  menu();
+ 
 
 }
 
-// the loop routine runs over and over again forever
-void loop(){
 
-  //rand draw 
-  M5.Lcd.fillTriangle(random(M5.Lcd.width()-1), random(M5.Lcd.height()-1), random(M5.Lcd.width()-1), random(M5.Lcd.height()-1), random(M5.Lcd.width()-1), random(M5.Lcd.height()-1), random(0xfffe));
+void text(){
+  M5.Lcd.setTextColor(WHITE);
+  M5.Lcd.setTextSize(2.5);
+}
+void setCursorText(int x, int y){
+   M5.Lcd.setCursor(x,y);
+}
+void menu(){
 
-  M5.update();
+  M5.Lcd.fillScreen(GREENTYPE);
+  M5.Lcd.fillCircle(100, 100, 20, GREY);
+  M5.Lcd.fillCircle(200, 100, 20, GREY);
+  M5.Lcd.fillCircle(112, 90, 10, WHITE);
+  M5.Lcd.fillCircle(212, 90, 10, WHITE);
+  text();
+  setCursorText(130,200);
+  M5.Lcd.printf("Manu");
+while(1){
+  if(M5.BtnB.wasPressed()) {
+    state++;
+  }
+  if (state==1)
+  {
+     state=3;
+     menuList();
+  }
+  else if(state==2){
+    state=3;
+  }
+M5.update();  
+}
+
+}
+void menuList(){
+  text();
+  //้header
+  M5.Lcd.fillScreen(GREENTYPE);
+  M5.Lcd.fillRect(0,0,900,50,GREY);
+  setCursorText(135,20);
+  M5.Lcd.print("MENU");
+  setCursorText(50,200);
+  //emoji
+  M5.Lcd.fillCircle(40, 120, 35, GREY);
+  M5.Lcd.fillCircle(120, 120, 35, GREY);
+  M5.Lcd.fillCircle(200, 120, 35, GREY);
+  M5.Lcd.fillCircle(280, 120, 35, GREY);
+
+
+  M5.Lcd.printf("<");
+  setCursorText(150,200);
+  M5.Lcd.printf("OK");
+  setCursorText(250,200);
+  M5.Lcd.printf(">");
+  
 }
