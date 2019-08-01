@@ -19,17 +19,18 @@ void CountDown();
 void Todo();
 void Percentage();
 void Sleep();
+void imgClock();
+void imgTodo();
+void imgPer();
+void imgSleep();
 //******************************************************
 void setup() {
   M5.begin();
-
- 
-
 }
 //******************************************************
 void loop(){
   menu();
-  
+ 
 }
 //******************************************************
 void text(){
@@ -40,7 +41,7 @@ void setCursorText(int x, int y){
    M5.Lcd.setCursor(x,y);
 }
 void menu(){
-
+  
   M5.Lcd.fillScreen(GREENTYPE);
   M5.Lcd.fillCircle(100, 100, 20, GREY);
   M5.Lcd.fillCircle(200, 100, 20, GREY);
@@ -65,26 +66,64 @@ void menu(){
     }
 
 }
+void imgClock(){
+    M5.Lcd.fillCircle(40, 120, 35, GREY);//*
+    M5.Lcd.fillCircle(40, 120, 25, WHITE);
+    M5.Lcd.fillRect(25,124,15,3,GREY);
+    M5.Lcd.fillRect(40,105,3,22,GREY);
+    
+}
+void imgTodo(){
+    M5.Lcd.fillCircle(120, 120, 35, GREY);//*
+    M5.Lcd.fillRect(100,100,10,10,WHITE);
+    M5.Lcd.fillRect(120,105,20,1,WHITE);
+    M5.Lcd.fillRect(100,115,10,10,WHITE);
+    M5.Lcd.fillRect(120,120,20,1,WHITE);
+    M5.Lcd.fillRect(100,130,10,10,WHITE);
+    M5.Lcd.fillRect(120,135,20,1,WHITE);
+}
+void imgPer(){
+    M5.Lcd.fillCircle(200, 120, 35, GREY);//*
+    M5.Lcd.fillCircle(200, 120, 25, WHITE);
+    M5.Lcd.setTextColor(GREY);
+    M5.Lcd.setTextSize(4.5);
+    setCursorText(190,105);
+    M5.Lcd.print("%");
+}
+void imgSleep(){
+    M5.Lcd.fillCircle(280, 120, 35, GREY);//*
+    M5.Lcd.setTextColor(WHITE);
+    M5.Lcd.setTextSize(3);
+    setCursorText(285,100);
+    M5.Lcd.print("Z");
+    M5.Lcd.setTextSize(2);
+    setCursorText(270,115);
+    M5.Lcd.print("Z");
+    M5.Lcd.setTextSize(1);
+    setCursorText(260,130);
+    M5.Lcd.print("Z");
+}
 void menuList(){
-  text();
-  //้header
+  
   M5.Lcd.fillScreen(GREENTYPE);
   M5.Lcd.fillRect(0,0,900,50,GREY);
+  text();
   setCursorText(135,20);
   M5.Lcd.print("MENU");
-  //emoji
-    M5.Lcd.fillCircle(40, 120, 35, GREY);
-    M5.Lcd.fillCircle(120, 120, 35, GREY);
-    M5.Lcd.fillCircle(200, 120, 35, GREY);
-    M5.Lcd.fillCircle(280, 120, 35, GREY);
- // M5.Lcd.drawJpgFile(SD, "../src/I_clock.jpg");
+  
+    imgClock();
+    imgTodo();
+    imgPer();
+    imgSleep();
+ 
+    text();
     setCursorText(50,200);
     M5.Lcd.printf("Home");
     setCursorText(150,200);
     M5.Lcd.printf("OK");
     setCursorText(250,200);
     M5.Lcd.printf(">");
-//Button
+
     while(on)
   {
     //Button C 
@@ -97,24 +136,69 @@ void menuList(){
 
     switch (stateMenuL){
     case 1 :
-       M5.Lcd.fillCircle(280, 120, 35, GREY);
-       M5.Lcd.fillCircle(40, 120, 35, WHITE);
+       M5.Lcd.fillCircle(280, 165, 10,  GREENTYPE);
+       M5.Lcd.fillCircle(40, 165, 10, WHITE);
        onc1=1;
+       if(M5.BtnB.wasPressed()&&onc1==1){ 
+          stateMenuCD++;
+           
+            if(stateMenuCD==1){
+              on=0;
+              onc1=0; 
+              stateMenuCD=0;
+              CountDown();
+            } 
+           else {stateMenuCD=0;}
+          }
        break;
     case 2:
-       M5.Lcd.fillCircle(40, 120, 35, GREY);
-       M5.Lcd.fillCircle(120, 120, 35, WHITE);
+       M5.Lcd.fillCircle(40, 165, 10, GREENTYPE);
+       M5.Lcd.fillCircle(120, 165, 10, WHITE);
        onc2=1;
+       if(M5.BtnB.wasPressed()&&onc2==1){ 
+          stateMenuTD++;
+           
+            if(stateMenuTD==1){
+              on=0;
+              onc2=0; 
+              stateMenuCD=0;
+              Todo();
+            } 
+           else {stateMenuTD=0;}
+          } 
+       
        break;
     case 3:
-       M5.Lcd.fillCircle(120, 120, 35, GREY);
-       M5.Lcd.fillCircle(200, 120, 35, WHITE);
+       M5.Lcd.fillCircle(120, 165, 10, GREENTYPE);
+       M5.Lcd.fillCircle(200, 165, 10, WHITE);
        onc3=1;
+       if(M5.BtnB.wasPressed()&&onc3==1){ 
+          stateMenuPE++;
+           
+            if(stateMenuPE==1){
+              on=0;
+              onc3=0; 
+              stateMenuPE=0;
+              Percentage();
+            } 
+           else {stateMenuPE=0;}
+          }
        break;
     case 4:
-       M5.Lcd.fillCircle(200, 120, 35, GREY);
-       M5.Lcd.fillCircle(280, 120, 35, WHITE);
+       M5.Lcd.fillCircle(200, 165, 10, GREENTYPE);
+       M5.Lcd.fillCircle(280, 165, 10, WHITE);
        onc4=1;
+         if(M5.BtnB.wasPressed()&&onc4==1){ 
+          stateMenuSL++;
+           
+            if(stateMenuSL==1){
+              on=0;
+              onc4=0; 
+              stateMenuSL=0;
+              Sleep();
+            } 
+           else {stateMenuSL=0;}
+          }
        break;
      }
   //Button A Home
@@ -127,55 +211,10 @@ void menuList(){
       }
       else {stateMenuR=0;}
      }  
-    //Button OK
-     else if(M5.BtnB.wasPressed()&&onc1==1){ 
-          stateMenuCD++;
-           
-            if(stateMenuCD==1){
-              on=0;
-              onc1=0; 
-              stateMenuCD=0;
-              CountDown();
-            } 
-           else {stateMenuCD=0;}
-          }
-      else if(M5.BtnB.wasPressed()&&onc2==1){ 
-          stateMenuTD++;
-           
-            if(stateMenuTD==1){
-              on=0;
-              onc2=0; 
-              stateMenuCD=0;
-              Todo();
-            } 
-           else {stateMenuTD=0;}
-          }    
-      else if(M5.BtnB.wasPressed()&&onc3==1){ 
-          stateMenuPE++;
-           
-            if(stateMenuPE==1){
-              on=0;
-              onc3=0; 
-              stateMenuPE=0;
-              Percentage();
-            } 
-           else {stateMenuPE=0;}
-          }   
-      else if(M5.BtnB.wasPressed()&&onc4==1){ 
-          stateMenuSL++;
-           
-            if(stateMenuSL==1){
-              on=0;
-              onc4=0; 
-              stateMenuSL=0;
-              Sleep();
-            } 
-           else {stateMenuSL=0;}
-          }   
+
      M5.update();
   }
 }
-
 void CountDown(){
   text();
   M5.Lcd.fillScreen(GREENTYPE);
@@ -204,9 +243,7 @@ void Todo(){
   M5.Lcd.fillScreen(GREENTYPE);
   M5.Lcd.fillRect(0,0,900,50,GREY);
   setCursorText(100,20);
-  M5.Lcd.print("ToDo List");
-    
-
+  M5.Lcd.print("Todo List");
   setCursorText(250,200);
   M5.Lcd.printf(">");
    while(1){
@@ -251,7 +288,8 @@ void Percentage(){
 void Sleep(){
   text();
   M5.Lcd.fillScreen(GREENTYPE);
-  M5.Lcd.print("Sleep");
+  M5.Lcd.fillRect(70, 100, 50,10, GREY);
+  M5.Lcd.fillRect(190, 100, 50,10, GREY);
   setCursorText(250,200);
   M5.Lcd.printf(">");
    while(1){
