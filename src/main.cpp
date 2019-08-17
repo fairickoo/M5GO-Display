@@ -1,4 +1,6 @@
 #include <M5Stack.h>
+#include <list.h>
+#include <percen.h>
 const unsigned int GREENTYPE = M5.Lcd.color565(7,235,235);
 const unsigned int GREY = M5.Lcd.color565(153,153,153);
 //******************************************************
@@ -10,6 +12,7 @@ int stateMenuCD=0;
 int stateMenuTD=0;
 int stateMenuPE=0;
 int stateMenuSL=0;
+
 //******************************************************
 void text();
 void menu();
@@ -26,16 +29,20 @@ void imgSleep();
 //******************************************************
 void setup() {
   M5.begin();
+  
+         
+ 
 }
 //******************************************************
 void loop(){
-  menu();
+ menu();
  
 }
 //******************************************************
 void text(){
   M5.Lcd.setTextColor(WHITE);
   M5.Lcd.setTextSize(2.5);
+  
 }
 void setCursorText(int x, int y){
    M5.Lcd.setCursor(x,y);
@@ -49,7 +56,7 @@ void menu(){
   M5.Lcd.fillCircle(212, 90, 10, WHITE);
   text();
   setCursorText(130,200);
-  M5.Lcd.printf("Manu");
+  M5.Lcd.printf("Menu");
   //***********************************
     while(1){
         if(M5.BtnB.wasPressed()) {
@@ -246,6 +253,19 @@ void Todo(){
   M5.Lcd.print("Todo List");
   setCursorText(250,200);
   M5.Lcd.printf(">");
+ 
+  M5.Lcd.setTextColor(WHITE);
+  M5.Lcd.setTextSize(3);
+   setCursorText(0,70);
+        for(int x=0;x<5;x++)
+        {
+          for(int y=0;y<30;y++)
+          { 
+            M5.lcd.print(title[x][y]);
+          }
+           M5.lcd.println();
+        }
+ 
    while(1){
      
         if(M5.BtnC.wasPressed()) {
@@ -270,6 +290,13 @@ void Percentage(){
   M5.Lcd.print("Percentage");
   setCursorText(250,200);
   M5.Lcd.printf(">");
+  
+  M5.Lcd.setTextColor(WHITE);
+  M5.Lcd.setTextSize(5); 
+  setCursorText(100,110);
+  M5.Lcd.print(percen);
+  M5.Lcd.print(" %");
+  
    while(1){
         if(M5.BtnC.wasPressed()) {
           on=1;
